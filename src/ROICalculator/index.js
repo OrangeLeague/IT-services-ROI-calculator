@@ -71,7 +71,7 @@ const ROICalculator = () => {
       const cumulativeCosts = months.map(
         (month) =>
           totalDevelopmentCost + (totalDevelopmentCost * 0.2 * month) / 12
-      );
+      ); 
       const cumulativeBenefits = months.map((month) => monthlyBenefit * month);
 
       roiChartRef.current = new Chart(ctx, {
