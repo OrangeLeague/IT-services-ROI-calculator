@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/IT-services-ROI-calculator/static/css/main.fb3b0c3c.css",
-    "main.js": "/IT-services-ROI-calculator/static/js/main.d21d0b5c.js",
+    "main.css": "/IT-services-ROI-calculator/static/css/main.53464942.css",
+    "main.js": "/IT-services-ROI-calculator/static/js/main.e1d427c5.js",
     "static/js/453.de6fbe5f.chunk.js": "/IT-services-ROI-calculator/static/js/453.de6fbe5f.chunk.js",
     "static/media/logo.svg": "/IT-services-ROI-calculator/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/IT-services-ROI-calculator/index.html",
-    "main.fb3b0c3c.css.map": "/IT-services-ROI-calculator/static/css/main.fb3b0c3c.css.map",
-    "main.d21d0b5c.js.map": "/IT-services-ROI-calculator/static/js/main.d21d0b5c.js.map",
+    "main.53464942.css.map": "/IT-services-ROI-calculator/static/css/main.53464942.css.map",
+    "main.e1d427c5.js.map": "/IT-services-ROI-calculator/static/js/main.e1d427c5.js.map",
     "453.de6fbe5f.chunk.js.map": "/IT-services-ROI-calculator/static/js/453.de6fbe5f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fb3b0c3c.css",
-    "static/js/main.d21d0b5c.js"
+    "static/css/main.53464942.css",
+    "static/js/main.e1d427c5.js"
   ]
 }
