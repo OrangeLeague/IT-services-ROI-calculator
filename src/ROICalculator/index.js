@@ -18,8 +18,8 @@ const ROICalculator = () => {
     const currentRevenue = parseInt(
       document.getElementById("current-revenue").value
     );
-    const marketSize = parseInt(document.getElementById("market-size").value);
-    const competition = parseInt(document.getElementById("competition").value);
+    // const marketSize = parseInt(document.getElementById("market-size").value);
+    // const competition = parseInt(document.getElementById("competition").value);
 
     const monthlyDevelopmentCost = 1000 * teamSize;
     const totalDevelopmentCost = monthlyDevelopmentCost * duration;
