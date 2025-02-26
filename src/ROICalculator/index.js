@@ -48,18 +48,18 @@ function ROICalculator() {
   const [serviceType, setServiceType] = useState("");
   const [industry, setIndustry] = useState("");
   const [projectDuration, setProjectDuration] = useState(2);
-  const [teamSize, setTeamSize] = useState(3);
+  // const [teamSize, setTeamSize] = useState(3);
   const [currentRevenue, setCurrentRevenue] = useState(1000); //setMaintainanceCost
   const [monthlyMaintainanceCost, setMonthlyMaintainanceCost] = useState(400); //setMaintainanceDuration
   const [maintainanceDuration, setMaintainanceDuration] = useState(4);
   const [currentMonthlyCost, setCurrentMonthlyCost] = useState(1000);
-  const [marketSize, setMarketSize] = useState(0);
-  const [competition, setCompetition] = useState(0);
+  // const [marketSize, setMarketSize] = useState(0);
+  // const [competition, setCompetition] = useState(0);
   const [growthRate, setGrowthRate] = useState(0);
-  const [competitionImpact, setCompetitionImpact] = useState(50);
+  // const [competitionImpact, setCompetitionImpact] = useState(50);
   const [userGrowth, setUserGrowth] = useState(0);
   const [seoGrowth, setSeoGrowth] = useState(0);
-  const [customerLTV, setCustomerLTV] = useState(0);
+  // const [customerLTV, setCustomerLTV] = useState(0);
   const [upsellRate, setUpsellRate] = useState(0); //setCrossSellRate
   const [crossSellRate, setCrossSellRate] = useState(0); //setCrossSellRate
   const [increaseInMargins, setIncreaseInMargins] = useState(0);
@@ -67,7 +67,7 @@ function ROICalculator() {
   const [additionalRevenuStreams, setAdditionalRevenuStreams] = useState(0);
   const [potentialData, setPotentialData] = useState(0);
 
-  const [upsellValue, setUpsellValue] = useState(0);
+  // const [upsellValue, setUpsellValue] = useState(0);
   const [cacReduction, setCacReduction] = useState(0);
   const [marketingReduction, setMarketingReduction] = useState(0);
   const [manpowerSavings, setManpowerSavings] = useState(0); //setInventorySavings
@@ -86,6 +86,7 @@ function ROICalculator() {
     multiplierFactor: 0,
   });
 
+  console.log(setIndustry,'setIndustryzd');
   const updateSliderBackground = (value) => {
     return {
       background: `linear-gradient(to right, #e99476 ${value}%, #f9f9f9 ${value}%)`,
@@ -94,7 +95,7 @@ function ROICalculator() {
 
   useEffect(() => {
     if (tab === "results") calculateROI();
-  }, [tab]);
+  }, [tab,calculateROI]);
 
   const calculateROI = () => {
     const industryParams = industryParameters[industry] || {
@@ -102,7 +103,7 @@ function ROICalculator() {
       infrastructureCost: 15,
     };
 
-    const monthlyDevCost = 1000 * currentMonthlyCost;
+    // const monthlyDevCost = 1000 * currentMonthlyCost;
     // const totalDevCost =
     //   monthlyDevCost *
     //   projectDuration *
