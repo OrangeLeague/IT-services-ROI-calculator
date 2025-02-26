@@ -362,6 +362,7 @@ function ROICalculator() {
       monthlyMaintainanceCost,
       maintainanceDuration,
       projectDuration,
+      roiChart
     ]
   );
 
