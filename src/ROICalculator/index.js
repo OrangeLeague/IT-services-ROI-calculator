@@ -93,122 +93,6 @@ function ROICalculator() {
     };
   };
 
-  const calculateROI = useCallback(() => {
-    const industryParams = industryParameters[industry] || {
-      revenueMultiplier: 1,
-      infrastructureCost: 15,
-    };
-
-    // const monthlyDevCost = 1000 * currentMonthlyCost;
-    // const totalDevCost =
-    //   monthlyDevCost *
-    //   projectDuration *
-    //   (1 + industryParams.infrastructureCost / 100);
-    // const maintenanceCost = monthlyDevCost * 0.2;
-
-    const totalDevCost = currentMonthlyCost * projectDuration;
-
-    // const maintenanceCost = currentMonthlyCost * 0.2;
-
-    const totalMaintainanceCost =
-      monthlyMaintainanceCost * maintainanceDuration;
-
-    const totalCost = totalDevCost + totalMaintainanceCost;
-
-    let revenueIncrease = 0;
-    switch (serviceType) {
-      case "web":
-        revenueIncrease = 0.3 * industryParams.revenueMultiplier;
-        break;
-      case "mobile":
-        revenueIncrease = 0.35 * industryParams.revenueMultiplier;
-        break;
-      case "fintech":
-        revenueIncrease = 0.4 * industryParams.revenueMultiplier;
-        break;
-      default:
-        break;
-    }
-
-    const monthlyBenefit =
-      currentRevenue *
-      (revenueIncrease + growthRate / 100) *
-      (1 + growthRate / 100);
-
-    // const breakEvenMonths = Math.ceil(
-    //   totalDevCost / (monthlyBenefit * (1 - competitionImpact / 100))
-    // );
-
-    // const increaseInMonthlyRevenue = currentRevenue;  crossSellRate
-    const increaseInMonthlyRevenue =
-      currentRevenue *
-        ((1 + userGrowth / 100) *
-          (1 + seoGrowth / 100) *
-          (1 + upsellRate / 100) *
-          (1 + crossSellRate / 100) *
-          (1 + additionalCustomers / 100) *
-          (1 + additionalRevenuStreams / 100) *
-          (1 + potentialData / 100)) -
-      currentRevenue;
-    console.log(
-      increaseInMonthlyRevenue,
-      "increaseInMonthlyRevenueasdasd",
-      currentRevenue
-    );
-    const reductionInCost =
-      currentRevenue *
-        ((1 + cacReduction / 100) *
-          (1 + marketingReduction / 100) *
-          (1 + manpowerSavings / 100) *
-          (1 + inventorySavings / 100)) -
-      currentRevenue;
-    const totalBenifits = increaseInMonthlyRevenue + reductionInCost;
-    const breakEvenMonths = totalCost / totalBenifits;
-
-    const yearOneROI = ((totalBenifits * 12 - totalCost) / totalCost) * 100;
-    console.log(yearOneROI, "yearOneROIefwewer", monthlyBenefit, totalCost);
-
-    setResults({
-      totalROI: yearOneROI.toFixed(2),
-      paybackPeriod: breakEvenMonths,
-      netProfit: (
-        monthlyBenefit * 36 -
-        (totalDevCost + totalMaintainanceCost * 36)
-      ).toFixed(2),
-      totalDevCost: totalDevCost,
-      totalMaintainanceCost: totalMaintainanceCost,
-      totalCost: totalCost,
-      increaseInMonthlyRevenue: increaseInMonthlyRevenue * 12,
-      reductionInCost: reductionInCost * 12,
-      totalBenifits: totalBenifits * 12,
-      multiplierFactor: (totalBenifits * 12) / totalCost,
-    });
-
-    updateChart(totalDevCost, totalBenifits, projectDuration);
-  },[additionalCustomers,
-    additionalRevenuStreams,
-    cacReduction,
-    crossSellRate,
-    currentMonthlyCost,
-    currentRevenue,
-    growthRate,
-    industry,
-    inventorySavings,
-    maintainanceDuration,
-    manpowerSavings,
-    marketingReduction,
-    monthlyMaintainanceCost,
-    potentialData,
-    projectDuration,
-    seoGrowth,
-    serviceType,
-    upsellRate,
-    userGrowth,]);
-
-  useEffect(() => {
-    if (tab === "results") calculateROI();
-  }, [tab,calculateROI]);
-
   const updateChart = (totalDevCost, monthlyBenefit, duration) => {
     const ctx = document.getElementById("roiChart")?.getContext("2d");
     if (ctx) {
@@ -383,6 +267,125 @@ function ROICalculator() {
       );
     }
   };
+
+  const calculateROI = useCallback(() => {
+    const industryParams = industryParameters[industry] || {
+      revenueMultiplier: 1,
+      infrastructureCost: 15,
+    };
+
+    // const monthlyDevCost = 1000 * currentMonthlyCost;
+    // const totalDevCost =
+    //   monthlyDevCost *
+    //   projectDuration *
+    //   (1 + industryParams.infrastructureCost / 100);
+    // const maintenanceCost = monthlyDevCost * 0.2;
+
+    const totalDevCost = currentMonthlyCost * projectDuration;
+
+    // const maintenanceCost = currentMonthlyCost * 0.2;
+
+    const totalMaintainanceCost =
+      monthlyMaintainanceCost * maintainanceDuration;
+
+    const totalCost = totalDevCost + totalMaintainanceCost;
+
+    let revenueIncrease = 0;
+    switch (serviceType) {
+      case "web":
+        revenueIncrease = 0.3 * industryParams.revenueMultiplier;
+        break;
+      case "mobile":
+        revenueIncrease = 0.35 * industryParams.revenueMultiplier;
+        break;
+      case "fintech":
+        revenueIncrease = 0.4 * industryParams.revenueMultiplier;
+        break;
+      default:
+        break;
+    }
+
+    const monthlyBenefit =
+      currentRevenue *
+      (revenueIncrease + growthRate / 100) *
+      (1 + growthRate / 100);
+
+    // const breakEvenMonths = Math.ceil(
+    //   totalDevCost / (monthlyBenefit * (1 - competitionImpact / 100))
+    // );
+
+    // const increaseInMonthlyRevenue = currentRevenue;  crossSellRate
+    const increaseInMonthlyRevenue =
+      currentRevenue *
+        ((1 + userGrowth / 100) *
+          (1 + seoGrowth / 100) *
+          (1 + upsellRate / 100) *
+          (1 + crossSellRate / 100) *
+          (1 + additionalCustomers / 100) *
+          (1 + additionalRevenuStreams / 100) *
+          (1 + potentialData / 100)) -
+      currentRevenue;
+    console.log(
+      increaseInMonthlyRevenue,
+      "increaseInMonthlyRevenueasdasd",
+      currentRevenue
+    );
+    const reductionInCost =
+      currentRevenue *
+        ((1 + cacReduction / 100) *
+          (1 + marketingReduction / 100) *
+          (1 + manpowerSavings / 100) *
+          (1 + inventorySavings / 100)) -
+      currentRevenue;
+    const totalBenifits = increaseInMonthlyRevenue + reductionInCost;
+    const breakEvenMonths = totalCost / totalBenifits;
+
+    const yearOneROI = ((totalBenifits * 12 - totalCost) / totalCost) * 100;
+    console.log(yearOneROI, "yearOneROIefwewer", monthlyBenefit, totalCost);
+
+    setResults({
+      totalROI: yearOneROI.toFixed(2),
+      paybackPeriod: breakEvenMonths,
+      netProfit: (
+        monthlyBenefit * 36 -
+        (totalDevCost + totalMaintainanceCost * 36)
+      ).toFixed(2),
+      totalDevCost: totalDevCost,
+      totalMaintainanceCost: totalMaintainanceCost,
+      totalCost: totalCost,
+      increaseInMonthlyRevenue: increaseInMonthlyRevenue * 12,
+      reductionInCost: reductionInCost * 12,
+      totalBenifits: totalBenifits * 12,
+      multiplierFactor: (totalBenifits * 12) / totalCost,
+    });
+
+    updateChart(totalDevCost, totalBenifits, projectDuration);
+  },[additionalCustomers,
+    additionalRevenuStreams,
+    cacReduction,
+    crossSellRate,
+    currentMonthlyCost,
+    currentRevenue,
+    growthRate,
+    industry,
+    inventorySavings,
+    maintainanceDuration,
+    manpowerSavings,
+    marketingReduction,
+    monthlyMaintainanceCost,
+    potentialData,
+    projectDuration,
+    seoGrowth,
+    serviceType,
+    updateChart,
+    upsellRate,
+    userGrowth,]);
+
+  useEffect(() => {
+    if (tab === "results") calculateROI();
+  }, [tab,calculateROI]);
+
+
 
   return (
     <div className={styles.calculatorContainer}>
