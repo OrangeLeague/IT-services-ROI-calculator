@@ -185,7 +185,26 @@ function ROICalculator() {
     });
 
     updateChart(totalDevCost, totalBenifits, projectDuration);
-  },[]);
+  },[additionalCustomers,
+    additionalRevenuStreams,
+    cacReduction,
+    crossSellRate,
+    currentMonthlyCost,
+    currentRevenue,
+    growthRate,
+    industry,
+    inventorySavings,
+    maintainanceDuration,
+    manpowerSavings,
+    marketingReduction,
+    monthlyMaintainanceCost,
+    potentialData,
+    projectDuration,
+    seoGrowth,
+    serviceType,
+    updateChart,
+    upsellRate,
+    userGrowth,]);
 
   useEffect(() => {
     if (tab === "results") calculateROI();
