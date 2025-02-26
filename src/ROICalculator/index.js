@@ -202,7 +202,6 @@ function ROICalculator() {
     projectDuration,
     seoGrowth,
     serviceType,
-    updateChart,
     upsellRate,
     userGrowth,]);
 
