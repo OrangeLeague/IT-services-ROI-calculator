@@ -185,12 +185,12 @@ function ROICalculator() {
     });
 
     updateChart(totalDevCost, totalBenifits, projectDuration);
-  });
+  },[]);
 
   useEffect(() => {
     if (tab === "results") calculateROI();
   }, [tab,calculateROI]);
-  
+
   const updateChart = (totalDevCost, monthlyBenefit, duration) => {
     const ctx = document.getElementById("roiChart")?.getContext("2d");
     if (ctx) {
