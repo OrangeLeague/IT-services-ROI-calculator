@@ -86,63 +86,216 @@ function ROICalculator() {
     multiplierFactor: 0,
   });
 
-  console.log(setIndustry,'setIndustryzd');
+  console.log(setIndustry, "setIndustryzd");
   const updateSliderBackground = (value) => {
     return {
       background: `linear-gradient(to right, #e99476 ${value}%, #f9f9f9 ${value}%)`,
     };
   };
 
-  const updateChart = (totalDevCost, monthlyBenefit, duration) => {
-    const ctx = document.getElementById("roiChart")?.getContext("2d");
-    if (ctx) {
+  // const updateChart = (totalDevCost, monthlyBenefit, duration) => {
+  //   const ctx = document.getElementById("roiChart")?.getContext("2d");
+  //   if (ctx) {
+  //     if (roiChart) roiChart.destroy();
+  //     const months = Array.from({ length: 24 }, (_, i) => i + 1);
+  //     console.log(months, "monthsasdaasd");
+  //     const projectMonths = Array.from(
+  //       { length: projectDuration + maintainanceDuration },
+  //       (_, i) => i + 1
+  //     );
+  //     console.log(projectMonths, "projectMonthssdfsf");
+  //     const cumulativeCosts = projectMonths.map((month) => {
+  //       if (month <= projectDuration) {
+  //         // During project duration, add development costs
+  //         return currentMonthlyCost * month;
+  //       } else {
+  //         // During maintenance duration, add maintenance costs
+  //         const maintenanceMonths = month - projectDuration;
+  //         return (
+  //           currentMonthlyCost * projectDuration + // Total cost during project
+  //           monthlyMaintainanceCost * maintenanceMonths // Add maintenance cost for the remaining months
+  //         );
+  //       }
+  //     });
+  //     console.log(cumulativeCosts, "cumulativeCostsd");
+  //     const cumulativeBenefits = months.map((month) => monthlyBenefit * month);
+
+  //     setRoiChart(
+  //       // new Chart(ctx, {
+  //       //   type: "line",
+  //       //   data: {
+  //       //     labels: months,
+  //       //     datasets: [
+  //       //       // {
+  //       //       //   label: "Cumulative Costs",
+  //       //       //   data: cumulativeCosts,
+  //       //       //   borderColor: "#e74c3c",
+  //       //       //   fill: false,
+  //       //       // },
+  //       //       {
+  //       //         label: "Cumulative Benefits",
+  //       //         data: cumulativeBenefits,
+  //       //         borderColor: "#2ecc71",
+  //       //         fill: false,
+  //       //       },
+  //       //     ],
+  //       //   },
+  //       //   options: { responsive: true, maintainAspectRatio: false },
+  //       // })
+
+  //       new Chart(ctx, {
+  //         type: "line",
+  //         data: {
+  //           labels: months,
+  //           datasets: [
+  //             {
+  //               label: "Total Costs",
+  //               data: cumulativeCosts,
+  //               borderColor: "#e74c3c",
+  //               fill: false,
+  //             },
+  //             {
+  //               label: "Cumulative Benefits",
+  //               data: cumulativeBenefits,
+  //               borderColor: "#2ecc71",
+  //               fill: false,
+  //             },
+  //           ],
+  //         },
+  //         options: {
+  //           responsive: true,
+  //           maintainAspectRatio: false,
+  //           scales: {
+  //             x: {
+  //               title: {
+  //                 display: true,
+  //                 text: "Months", // Add x-axis label here
+  //                 color: "orange", // Customize label color
+  //                 font: {
+  //                   family: "'Arial', sans-serif", // Customize font
+  //                   size: 14, // Customize font size
+  //                   weight: "bold", // Customize font weight
+  //                 },
+  //               },
+  //               ticks: {
+  //                 color: "#666", // Set tick label color
+  //               },
+  //             },
+  //             y: {
+  //               title: {
+  //                 display: true,
+  //                 text: "Dollars", // Add x-axis label here
+  //                 color: "orange", // Customize label color
+  //                 font: {
+  //                   family: "'Arial', sans-serif", // Customize font
+  //                   size: 14, // Customize font size
+  //                   weight: "bold", // Customize font weight
+  //                 },
+  //               },
+  //               ticks: {
+  //                 color: "#666", // Set tick label color
+  //               },
+  //             },
+  //           },
+  //           plugins: {
+  //             legend: {
+  //               labels: {
+  //                 font: {
+  //                   size: 14,
+  //                 },
+  //                 marginTop: "2px",
+  //               },
+  //             },
+  //           },
+  //         },
+  //       })
+  //       // new Chart(ctx, {
+  //       //   type: "line",
+  //       //   data: {
+  //       //     labels: months, // Use `months` array with "M1", "M2", etc.
+  //       //     datasets: [
+  //       //       {
+  //       //         label: "Cumulative Benefits",
+  //       //         data: cumulativeBenefits,
+  //       //         borderColor: "#2ecc71",
+  //       //         fill: false,
+  //       //       },
+  //       //     ],
+  //       //   },
+  //       //   options: {
+  //       //     responsive: true,
+  //       //     maintainAspectRatio: false,
+  //       //     scales: {
+  //       //       x: {
+  //       //         ticks: {
+  //       //           color: "#666", // Set label color
+  //       //           font: {
+  //       //             family: "'Arial', sans-serif", // Font family
+  //       //             size: 12, // Font size
+  //       //             weight: "bold", // Font weight
+  //       //           },
+  //       //         },
+  //       //         grid: {
+  //       //           drawOnChartArea: false, // Only draw grid lines for ticks
+  //       //           color: "#ddd",
+  //       //         },
+  //       //       },
+  //       //       y: {
+  //       //         ticks: {
+  //       //           color: "#666",
+  //       //           font: {
+  //       //             family: "'Arial', sans-serif",
+  //       //             size: 12,
+  //       //           },
+  //       //         },
+  //       //         grid: {
+  //       //           color: "#ddd",
+  //       //         },
+  //       //       },
+  //       //     },
+  //       //     plugins: {
+  //       //       legend: {
+  //       //         labels: {
+  //       //           font: {
+  //       //             size: 14,
+  //       //           },
+  //       //         },
+  //       //       },
+  //       //     },
+  //       //   },
+  //       // })
+  //     );
+  //   }
+  // };
+
+  const updateChart = useCallback(
+    (totalDevCost, monthlyBenefit, duration) => {
+      const ctx = document.getElementById("roiChart")?.getContext("2d");
+      if (!ctx) return;
+
       if (roiChart) roiChart.destroy();
+
       const months = Array.from({ length: 24 }, (_, i) => i + 1);
-      console.log(months, "monthsasdaasd");
       const projectMonths = Array.from(
         { length: projectDuration + maintainanceDuration },
         (_, i) => i + 1
       );
-      console.log(projectMonths, "projectMonthssdfsf");
+
       const cumulativeCosts = projectMonths.map((month) => {
         if (month <= projectDuration) {
-          // During project duration, add development costs
           return currentMonthlyCost * month;
         } else {
-          // During maintenance duration, add maintenance costs
           const maintenanceMonths = month - projectDuration;
           return (
-            currentMonthlyCost * projectDuration + // Total cost during project
-            monthlyMaintainanceCost * maintenanceMonths // Add maintenance cost for the remaining months
+            currentMonthlyCost * projectDuration +
+            monthlyMaintainanceCost * maintenanceMonths
           );
         }
       });
-      console.log(cumulativeCosts, "cumulativeCostsd");
+
       const cumulativeBenefits = months.map((month) => monthlyBenefit * month);
 
       setRoiChart(
-        // new Chart(ctx, {
-        //   type: "line",
-        //   data: {
-        //     labels: months,
-        //     datasets: [
-        //       // {
-        //       //   label: "Cumulative Costs",
-        //       //   data: cumulativeCosts,
-        //       //   borderColor: "#e74c3c",
-        //       //   fill: false,
-        //       // },
-        //       {
-        //         label: "Cumulative Benefits",
-        //         data: cumulativeBenefits,
-        //         borderColor: "#2ecc71",
-        //         fill: false,
-        //       },
-        //     ],
-        //   },
-        //   options: { responsive: true, maintainAspectRatio: false },
-        // })
-
         new Chart(ctx, {
           type: "line",
           data: {
@@ -169,104 +322,48 @@ function ROICalculator() {
               x: {
                 title: {
                   display: true,
-                  text: "Months", // Add x-axis label here
-                  color: "orange", // Customize label color
+                  text: "Months",
+                  color: "orange",
                   font: {
-                    family: "'Arial', sans-serif", // Customize font
-                    size: 14, // Customize font size
-                    weight: "bold", // Customize font weight
+                    family: "'Arial', sans-serif",
+                    size: 14,
+                    weight: "bold",
                   },
                 },
-                ticks: {
-                  color: "#666", // Set tick label color
-                },
+                ticks: { color: "#666" },
               },
               y: {
                 title: {
                   display: true,
-                  text: "Dollars", // Add x-axis label here
-                  color: "orange", // Customize label color
+                  text: "Dollars",
+                  color: "orange",
                   font: {
-                    family: "'Arial', sans-serif", // Customize font
-                    size: 14, // Customize font size
-                    weight: "bold", // Customize font weight
+                    family: "'Arial', sans-serif",
+                    size: 14,
+                    weight: "bold",
                   },
                 },
-                ticks: {
-                  color: "#666", // Set tick label color
-                },
+                ticks: { color: "#666" },
               },
             },
             plugins: {
               legend: {
                 labels: {
-                  font: {
-                    size: 14,
-                  },
-                  marginTop: "2px",
+                  font: { size: 14 },
                 },
               },
             },
           },
         })
-        // new Chart(ctx, {
-        //   type: "line",
-        //   data: {
-        //     labels: months, // Use `months` array with "M1", "M2", etc.
-        //     datasets: [
-        //       {
-        //         label: "Cumulative Benefits",
-        //         data: cumulativeBenefits,
-        //         borderColor: "#2ecc71",
-        //         fill: false,
-        //       },
-        //     ],
-        //   },
-        //   options: {
-        //     responsive: true,
-        //     maintainAspectRatio: false,
-        //     scales: {
-        //       x: {
-        //         ticks: {
-        //           color: "#666", // Set label color
-        //           font: {
-        //             family: "'Arial', sans-serif", // Font family
-        //             size: 12, // Font size
-        //             weight: "bold", // Font weight
-        //           },
-        //         },
-        //         grid: {
-        //           drawOnChartArea: false, // Only draw grid lines for ticks
-        //           color: "#ddd",
-        //         },
-        //       },
-        //       y: {
-        //         ticks: {
-        //           color: "#666",
-        //           font: {
-        //             family: "'Arial', sans-serif",
-        //             size: 12,
-        //           },
-        //         },
-        //         grid: {
-        //           color: "#ddd",
-        //         },
-        //       },
-        //     },
-        //     plugins: {
-        //       legend: {
-        //         labels: {
-        //           font: {
-        //             size: 14,
-        //           },
-        //         },
-        //       },
-        //     },
-        //   },
-        // })
       );
-    }
-  };
+    },
+    [
+      currentMonthlyCost,
+      monthlyMaintainanceCost,
+      maintainanceDuration,
+      projectDuration,
+    ]
+  );
 
   const calculateROI = useCallback(() => {
     const industryParams = industryParameters[industry] || {
@@ -360,7 +457,8 @@ function ROICalculator() {
     });
 
     updateChart(totalDevCost, totalBenifits, projectDuration);
-  },[additionalCustomers,
+  }, [
+    additionalCustomers,
     additionalRevenuStreams,
     cacReduction,
     crossSellRate,
@@ -379,13 +477,12 @@ function ROICalculator() {
     serviceType,
     updateChart,
     upsellRate,
-    userGrowth,]);
+    userGrowth,
+  ]);
 
   useEffect(() => {
     if (tab === "results") calculateROI();
-  }, [tab,calculateROI]);
-
-
+  }, [tab, calculateROI]);
 
   return (
     <div className={styles.calculatorContainer}>
