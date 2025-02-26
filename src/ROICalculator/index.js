@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Chart from "chart.js/auto";
 import styles from "./styles.module.css";
 import CountUp from "react-countup";
@@ -93,11 +93,7 @@ function ROICalculator() {
     };
   };
 
-  useEffect(() => {
-    if (tab === "results") calculateROI();
-  }, [tab,calculateROI]);
-
-  const calculateROI = () => {
+  const calculateROI = useCallback(() => {
     const industryParams = industryParameters[industry] || {
       revenueMultiplier: 1,
       infrastructureCost: 15,
@@ -189,8 +185,12 @@ function ROICalculator() {
     });
 
     updateChart(totalDevCost, totalBenifits, projectDuration);
-  };
+  });
 
+  useEffect(() => {
+    if (tab === "results") calculateROI();
+  }, [tab,calculateROI]);
+  
   const updateChart = (totalDevCost, monthlyBenefit, duration) => {
     const ctx = document.getElementById("roiChart")?.getContext("2d");
     if (ctx) {
