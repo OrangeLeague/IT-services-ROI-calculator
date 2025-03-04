@@ -86,7 +86,6 @@ function ROICalculator() {
     multiplierFactor: 0,
   });
 
-  console.log(setIndustry, "setIndustryzd");
   const updateSliderBackground = (value) => {
     return {
       background: `linear-gradient(to right, #e99476 ${value}%, #f9f9f9 ${value}%)`,
@@ -362,7 +361,7 @@ function ROICalculator() {
       monthlyMaintainanceCost,
       maintainanceDuration,
       projectDuration,
-      roiChart
+      // roiChart
     ]
   );
 
@@ -479,6 +478,7 @@ function ROICalculator() {
     updateChart,
     upsellRate,
     userGrowth,
+    // tab
   ]);
 
   useEffect(() => {
