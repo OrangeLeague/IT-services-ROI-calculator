@@ -86,6 +86,7 @@ function ROICalculator() {
     multiplierFactor: 0,
   });
 
+  console.log(setIndustry,'setIndustry');
   const updateSliderBackground = (value) => {
     return {
       background: `linear-gradient(to right, #e99476 ${value}%, #f9f9f9 ${value}%)`,
