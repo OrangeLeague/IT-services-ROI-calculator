@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef} from "react";
 import Chart from "chart.js/auto";
 import styles from "./styles.module.css";
 import CountUp from "react-countup";
@@ -72,7 +72,7 @@ function ROICalculator() {
   const [marketingReduction, setMarketingReduction] = useState(0);
   const [manpowerSavings, setManpowerSavings] = useState(0); //setInventorySavings
   const [inventorySavings, setInventorySavings] = useState(0);
-  const [roiChart, setRoiChart] = useState(null);
+  // const [roiChart, setRoiChart] = useState(null);
   const [results, setResults] = useState({
     totalROI: 0,
     paybackPeriod: 0,
@@ -268,19 +268,122 @@ function ROICalculator() {
   //   }
   // };
 
+  // const updateChart = useCallback(
+  //   (totalDevCost, monthlyBenefit, duration) => {
+  //     const ctx = document.getElementById("roiChart")?.getContext("2d");
+  //     if (!ctx) return;
+
+  //     if (roiChart) roiChart.destroy();
+
+  //     const months = Array.from({ length: 24 }, (_, i) => i + 1);
+  //     const projectMonths = Array.from(
+  //       { length: projectDuration + maintainanceDuration },
+  //       (_, i) => i + 1
+  //     );
+
+  //     const cumulativeCosts = projectMonths.map((month) => {
+  //       if (month <= projectDuration) {
+  //         return currentMonthlyCost * month;
+  //       } else {
+  //         const maintenanceMonths = month - projectDuration;
+  //         return (
+  //           currentMonthlyCost * projectDuration +
+  //           monthlyMaintainanceCost * maintenanceMonths
+  //         );
+  //       }
+  //     });
+
+  //     const cumulativeBenefits = months.map((month) => monthlyBenefit * month);
+
+  //     setRoiChart(
+  //       new Chart(ctx, {
+  //         type: "line",
+  //         data: {
+  //           labels: months,
+  //           datasets: [
+  //             {
+  //               label: "Total Costs",
+  //               data: cumulativeCosts,
+  //               borderColor: "#e74c3c",
+  //               fill: false,
+  //             },
+  //             {
+  //               label: "Cumulative Benefits",
+  //               data: cumulativeBenefits,
+  //               borderColor: "#2ecc71",
+  //               fill: false,
+  //             },
+  //           ],
+  //         },
+  //         options: {
+  //           responsive: true,
+  //           maintainAspectRatio: false,
+  //           scales: {
+  //             x: {
+  //               title: {
+  //                 display: true,
+  //                 text: "Months",
+  //                 color: "orange",
+  //                 font: {
+  //                   family: "'Arial', sans-serif",
+  //                   size: 14,
+  //                   weight: "bold",
+  //                 },
+  //               },
+  //               ticks: { color: "#666" },
+  //             },
+  //             y: {
+  //               title: {
+  //                 display: true,
+  //                 text: "Dollars",
+  //                 color: "orange",
+  //                 font: {
+  //                   family: "'Arial', sans-serif",
+  //                   size: 14,
+  //                   weight: "bold",
+  //                 },
+  //               },
+  //               ticks: { color: "#666" },
+  //             },
+  //           },
+  //           plugins: {
+  //             legend: {
+  //               labels: {
+  //                 font: { size: 14 },
+  //               },
+  //             },
+  //           },
+  //         },
+  //       })
+  //     );
+  //   },
+  //   [
+  //     currentMonthlyCost,
+  //     monthlyMaintainanceCost,
+  //     maintainanceDuration,
+  //     projectDuration,
+  //     // roiChart
+  //   ]
+  // );
+
+  const roiChartRef = useRef(null); // Use useRef instead of useState
+
   const updateChart = useCallback(
     (totalDevCost, monthlyBenefit, duration) => {
       const ctx = document.getElementById("roiChart")?.getContext("2d");
       if (!ctx) return;
-
-      if (roiChart) roiChart.destroy();
-
+  
+      // Destroy existing chart if it exists
+      if (roiChartRef.current) {
+        roiChartRef.current.destroy();
+      }
+  
       const months = Array.from({ length: 24 }, (_, i) => i + 1);
       const projectMonths = Array.from(
         { length: projectDuration + maintainanceDuration },
         (_, i) => i + 1
       );
-
+  
       const cumulativeCosts = projectMonths.map((month) => {
         if (month <= projectDuration) {
           return currentMonthlyCost * month;
@@ -292,78 +395,75 @@ function ROICalculator() {
           );
         }
       });
-
+  
       const cumulativeBenefits = months.map((month) => monthlyBenefit * month);
-
-      setRoiChart(
-        new Chart(ctx, {
-          type: "line",
-          data: {
-            labels: months,
-            datasets: [
-              {
-                label: "Total Costs",
-                data: cumulativeCosts,
-                borderColor: "#e74c3c",
-                fill: false,
-              },
-              {
-                label: "Cumulative Benefits",
-                data: cumulativeBenefits,
-                borderColor: "#2ecc71",
-                fill: false,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: "Months",
-                  color: "orange",
-                  font: {
-                    family: "'Arial', sans-serif",
-                    size: 14,
-                    weight: "bold",
-                  },
-                },
-                ticks: { color: "#666" },
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: "Dollars",
-                  color: "orange",
-                  font: {
-                    family: "'Arial', sans-serif",
-                    size: 14,
-                    weight: "bold",
-                  },
-                },
-                ticks: { color: "#666" },
-              },
+  
+      roiChartRef.current = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: "Total Costs",
+              data: cumulativeCosts,
+              borderColor: "#e74c3c",
+              fill: false,
             },
-            plugins: {
-              legend: {
-                labels: {
-                  font: { size: 14 },
+            {
+              label: "Cumulative Benefits",
+              data: cumulativeBenefits,
+              borderColor: "#2ecc71",
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Months",
+                color: "orange",
+                font: {
+                  family: "'Arial', sans-serif",
+                  size: 14,
+                  weight: "bold",
                 },
+              },
+              ticks: { color: "#666" },
+            },
+            y: {
+              title: {
+                display: true,
+                text: "Dollars",
+                color: "orange",
+                font: {
+                  family: "'Arial', sans-serif",
+                  size: 14,
+                  weight: "bold",
+                },
+              },
+              ticks: { color: "#666" },
+            },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                font: { size: 14 },
               },
             },
           },
-        })
-      );
+        },
+      });
     },
     [
       currentMonthlyCost,
       monthlyMaintainanceCost,
       maintainanceDuration,
       projectDuration,
-      // roiChart
-    ]
+    ] // No need to include roiChartRef.current
   );
 
   const calculateROI = useCallback(() => {
